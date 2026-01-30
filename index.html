@@ -2,8 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>My Project Collection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Portfolio | Aadhavan R</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #8b5cf6;
+      --accent: #10b981;
+      --dark-bg: #0f172a;
+      --darker-bg: #020617;
+      --card-bg: #111827;
+      --border-color: #374151;
+      --text-primary: #f1f5f9;
+      --text-secondary: #9ca3af;
+      --text-tertiary: #64748b;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --border-radius: 12px;
+      --border-radius-lg: 16px;
+      --transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.25);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+      --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -11,145 +38,735 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, var(--dark-bg), var(--darker-bg));
+      color: var(--text-primary);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
     }
 
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.05) 0%, transparent 25%),
+        radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.07) 0%, transparent 30%),
+        radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
+      z-index: -1;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header Styles */
     header {
-      padding: 1rem 1.5rem;
-      background: #111827;
+      padding: 1.5rem 0;
+      position: relative;
+      z-index: 100;
+    }
+
+    .header-content {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
-    header h1 {
-      font-size: 1.2rem;
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1.75rem;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-decoration: none;
     }
 
-    .projects {
-      padding: 0.75rem 1.5rem;
-      background: #020617;
+    .logo i {
+      font-size: 1.8rem;
+    }
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .header-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header-meta i {
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    /* Projects Section */
+    .section-title {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title i {
+      color: var(--primary);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-lg);
+      padding: 1.5rem;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .project-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+      z-index: 10;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .project-card.active {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .project-card.active::before {
+      transform: scaleX(1);
+    }
+
+    .project-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .project-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .project-card p {
+      color: var(--text-tertiary);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+
+    .project-tech {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
+      margin-top: auto;
     }
 
-    .project-btn {
-      border: 1px solid #374151;
-      background: #020617;
-      color: #e5e7eb;
-      padding: 0.35rem 0.8rem;
+    .tech-tag {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--primary);
+      padding: 0.25rem 0.75rem;
       border-radius: 999px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
+      font-size: 0.8rem;
+      font-weight: 500;
     }
 
-    .project-btn:hover {
-      background: #1f2937;
+    /* Preview Section */
+    .preview-container {
+      background: var(--card-bg);
+      border-radius: var(--border-radius-lg);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      margin-bottom: 3rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .browser-chrome {
+      background: #1e293b;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .browser-controls {
+      display: flex;
+      gap: 0.65rem;
+      margin-right: 1.5rem;
+    }
+
+    .browser-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .browser-btn.close {
+      background: var(--danger);
+    }
+
+    .browser-btn.minimize {
+      background: var(--warning);
+    }
+
+    .browser-btn.maximize {
+      background: var(--success);
+    }
+
+    .browser-url {
+      flex-grow: 1;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 0.5rem 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .preview-content {
+      position: relative;
+      height: 70vh;
+      min-height: 500px;
+      background: #030712;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loader {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #030712;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(99, 102, 241, 0.2);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1.5rem;
+    }
+
+    .loader-text {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .project-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .project-info {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: rgba(30, 41, 59, 0.7);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .project-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .project-title i {
+      color: var(--primary);
+    }
+
+    .project-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn {
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.55);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      box-shadow: none;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
       transform: translateY(-1px);
     }
 
-    .project-btn.active {
-      background: #4b5563;
+    .btn i {
+      font-size: 1.1rem;
     }
 
-    main {
-      flex: 1;
-      padding: 0.75rem 1.5rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    #current-project-name {
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 0 3rem;
+      color: var(--text-tertiary);
       font-size: 0.95rem;
-      color: #9ca3af;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: auto;
     }
 
-    iframe {
-      width: 100%;
-      height: calc(100vh - 160px);
-      border: none;
-      border-radius: 0.5rem;
-      background: #030712;
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .contact-link:hover {
+      color: var(--primary);
+    }
+
+    .contact-link i {
+      font-size: 1.1rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+      
+      .header-meta {
+        gap: 0.75rem;
+        font-size: 0.85rem;
+      }
+      
+      .browser-url {
+        display: none;
+      }
+      
+      .preview-content {
+        height: 60vh;
+        min-height: 400px;
+      }
     }
 
     @media (max-width: 600px) {
-      iframe {
-        height: calc(100vh - 200px);
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .logo {
+        font-size: 1.5rem;
+      }
+      
+      .logo i {
+        font-size: 1.5rem;
+      }
+      
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .project-actions {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .preview-content {
+        height: 50vh;
+        min-height: 300px;
+      }
+      
+      .browser-controls {
+        margin-right: 0.5rem;
+      }
+      
+      .section-title {
+        font-size: 1.5rem;
+        justify-content: center;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>My Web Projects</h1>
-    <span style="font-size: 0.8rem; color:#9ca3af;">AADHAVAN R</span>
-  </header>
+  <div class="container">
+    <header>
+      <div class="header-content">
+        <a href="#" class="logo">
+          <i class="fas fa-code"></i>
+          <span>Aadhavan R</span>
+        </a>
+        <div class="header-meta">
+          <span><i class="fas fa-briefcase"></i> Web Developer</span>
+          <span><i class="fas fa-laptop-code"></i> HTML, CSS, JavaScript, Bootstrap,python,java</span>
+        </div>
+      </div>
+    </header>
 
-  <section class="projects">
-    <button class="project-btn active" data-url="https://ddos-demo-dzhq.vercel.app/  ">
-      DDoS Demo
-    </button>
-    <button class="project-btn" data-url="https://hotel-app-9zkb.vercel.app/  ">
-      Hotel App
-    </button>
-    <button class="project-btn" data-url="https://cycle-app-delta.vercel.app/  ">
-      Cycle App
-    </button>
-    <button class="project-btn" data-url="https://habittracker-azure.vercel.app/  ">
-      Habit Tracker
-    </button>
-    <button class="project-btn" data-url="https://mobile-e-commerce-blond.vercel.app/  ">
-      Mobile E‑Commerce
-    </button>
-    <button class="project-btn" data-url="https://cyberporal.vercel.app/  ">
-      Cyberporal
-    </button>
-    <button class="project-btn" data-url="https://vote-application.vercel.app/  ">
-      Vote App
-    </button>
-    <button class="project-btn" data-url="https://ug-project-demo-gv6x.vercel.app/  ">
-      UG Project
-    </button>
+    <main>
+      <h2 class="section-title"><i class="fas fa-layer-group"></i> My Web Projects</h2>
+      
+      <div class="projects-grid">
+        <div class="project-card active" data-url="https://ddos-demo-dzhq.vercel.app/">
+          <div class="project-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>DDoS Demo</h3>
+          <p>Interactive simulation demonstrating DDoS attack mechanics and mitigation strategies.</p>
+          <div class="project-tech">
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Canvas API</span>
+            <span class="tech-tag">Real-time</span>
+          </div>
+        </div>
+        
+        <div class="project-card" data-url="https://hotel-app-9zkb.vercel.app/">
+          <div class="project-icon">
+            <i class="fas fa-hotel"></i>
+          </div>
+          <h3>Hotel App</h3>
+          <p>Complete hotel management system with booking functionality and admin dashboard.</p>
+          <div class="project-tech">
+            <span class="tech-tag">html</span>
+            <span class="tech-tag">Firebase</span>
+            <span class="tech-tag">Responsive</span>
+          </div>
+        </div>
+        
+        <div class="project-card" data-url="https://cycle-app-delta.vercel.app/">
+          <div class="project-icon">
+            <i class="fas fa-bicycle"></i>
+          </div>
+          <h3>Cycle App</h3>
+          <p>Bicycle rental service with location tracking and reservation system.</p>
+          <div class="project-tech">
+            <span class="tech-tag">Html&Css</span>
+            <span class="tech-tag">Maps API</span>
+            <span class="tech-tag">java script</span>
+          </div>
+        </div>
+        
+        <div class="project-card" data-url="https://habittracker-azure.vercel.app/">
+          <div class="project-icon">
+            <i class="fas fa-tasks"></i>
+          </div>
+          <h3>Habit Tracker</h3>
+          <p>Personal productivity tool for building and maintaining positive daily habits.</p>
+          <div class="project-tech">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">Local Storage</span>
+            <span class="tech-tag">Charts</span>
+          </div>
+        </div>
+        
+        <div class="project-card" data-url="https://mobile-e-commerce-blond.vercel.app/">
+          <div class="project-icon">
+            <i class="fas fa-shopping-bag"></i>
+          </div>
+          <h3>Mobile E-Commerce</h3>
+          <p>Fully responsive e-commerce platform optimized for mobile shopping experience.</p>
+          <div class="project-tech">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </div>
+        
+        <div class="project-card" data-url="https://cyberporal.vercel.app/">
+          <div class="project-icon">
+            <i class="fas fa-user-secret"></i>
+          </div>
+          <h3>Cyberporal</h3>
+          <p>Cybersecurity portal with resources, tools, and educational content about online safety.</p>
+          <div class="project-tech">
+            <span class="tech-tag">Html&JAVA Script</span>
+            <span class="tech-tag">Tailwind CSS</span>
+            <span class="tech-tag">APIs</span>
+          </div>
+        </div>
+        
+        <div class="project-card" data-url="https://vote-application.vercel.app/">
+          <div class="project-icon">
+            <i class="fas fa-vote-yea"></i>
+          </div>
+          <h3>Vote App</h3>
+          <p>Secure voting application with authentication and real-time result tallying.</p>
+          <div class="project-tech">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">WebSockets</span>
+          </div>
+        </div>
+        
+        <div class="project-card" data-url="https://ug-project-demo-gv6x.vercel.app/">
+          <div class="project-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3>UG Project</h3>
+          <p>University graduation project demonstrating full-stack development capabilities.</p>
+          <div class="project-tech">
+            <span class="tech-tag">MERN Stack</span>
+            <span class="tech-tag">JWT Auth</span>
+            <span class="tech-tag">REST API</span>
+          </div>
+        </div>
+        
+        <div class="project-card" data-url="https://porfolio-mu-topaz.vercel.app/">
+          <div class="project-icon">
+            <i class="fas fa-address-card"></i>
+          </div>
+          <h3>Portfolio</h3>
+          <p>Personal portfolio website showcasing projects, skills, and professional experience.</p>
+          <div class="project-tech">
+            <span class="tech-tag">HTML/CSS</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Responsive</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="preview-container">
+        <div class="browser-chrome">
+          <div class="browser-controls">
+            <span class="browser-btn close"></span>
+            <span class="browser-btn minimize"></span>
+            <span class="browser-btn maximize"></span>
+          </div>
+          <div class="browser-url" id="browser-url">https://ddos-demo-dzhq.vercel.app/</div>
+        </div>
+        
+        <div class="preview-content">
+          <div class="loader" id="loader">
+            <div class="spinner"></div>
+            <div class="loader-text">Loading project preview...</div>
+          </div>
+          <iframe 
+            id="project-frame" 
+            class="project-frame" 
+            src="https://ddos-demo-dzhq.vercel.app/" 
+            title="Project preview"
+            sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals"
+          ></iframe>
+        </div>
+        
+        <div class="project-info">
+          <div class="project-title">
+            <i class="fas fa-desktop"></i>
+            <span id="current-project-name">DDoS Demo</span>
+          </div>
+          <div class="project-actions">
+            <button class="btn btn-outline" id="refresh-btn">
+              <i class="fas fa-redo"></i> Refresh
+            </button>
+            <button class="btn" id="visit-btn">
+              <i class="fas fa-external-link-alt"></i> Visit Project
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
     
-  </section>
-
-  <main>
-    <div id="current-project-name">Now showing: DDoS Demo</div>
-    <iframe
-      id="project-frame"
-      src="https://ddos-demo-dzhq.vercel.app/  "
-      title="Project preview"
-      loading="lazy"
-      sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
-    ></iframe>
-  </main>
+    <footer>
+      <div class="footer-content">
+        <div class="contact-link">
+          <i class="fas fa-envelope"></i>
+          <span>aadthiyaa@gmail.com</span>
+        </div>
+        <div class="contact-link">
+          <i class="fas fa-phone"></i>
+          <span>+91 84899 20988</span>
+        </div>
+        <div class="contact-link">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Chennai, Tamil Nadu, India</span>
+        </div>
+      </div>
+      <div style="margin-top: 1rem; color: var(--text-tertiary);">
+        &copy; 2026 Aadhavan R | Web Developer
+      </div>
+    </footer>
+  </div>
 
   <script>
-    const buttons = document.querySelectorAll('.project-btn');
-    const frame = document.getElementById('project-frame');
-    const currentName = document.getElementById('current-project-name');
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // change active button
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        // update iframe
-        const url = btn.getAttribute('data-url');
-        frame.src = url;
-
-        // update label
-        currentName.textContent = 'Now showing: ' + btn.textContent.trim();
+    document.addEventListener('DOMContentLoaded', () => {
+      const projectCards = document.querySelectorAll('.project-card');
+      const projectFrame = document.getElementById('project-frame');
+      const browserUrl = document.getElementById('browser-url');
+      const currentProjectName = document.getElementById('current-project-name');
+      const loader = document.getElementById('loader');
+      const refreshBtn = document.getElementById('refresh-btn');
+      const visitBtn = document.getElementById('visit-btn');
+      
+      // Project descriptions mapping
+      const projectDescriptions = {
+        "DDoS Demo": "Interactive simulation demonstrating DDoS attack mechanics and mitigation strategies.",
+        "Hotel App": "Complete hotel management system with booking functionality and admin dashboard.",
+        "Cycle App": "Bicycle rental service with location tracking and reservation system.",
+        "Habit Tracker": "Personal productivity tool for building and maintaining positive daily habits.",
+        "Mobile E-Commerce": "Fully responsive e-commerce platform optimized for mobile shopping experience.",
+        "Cyberporal": "Cybersecurity portal with resources, tools, and educational content about online safety.",
+        "Vote App": "Secure voting application with authentication and real-time result tallying.",
+        "UG Project": "University graduation project demonstrating full-stack development capabilities.",
+        "Portfolio": "Personal portfolio website showcasing projects, skills, and professional experience."
+      };
+      
+      // Initialize iframe load handling
+      projectFrame.addEventListener('load', () => {
+        setTimeout(() => {
+          loader.classList.add('hidden');
+        }, 300); // Slight delay for visual effect
       });
+      
+      // Handle project card clicks
+      projectCards.forEach(card => {
+        card.addEventListener('click', () => {
+          // Update active state
+          projectCards.forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+          
+          // Get project URL and name
+          const url = card.getAttribute('data-url').trim();
+          const projectName = card.querySelector('h3').textContent;
+          
+          // Show loader
+          loader.classList.remove('hidden');
+          
+          // Update UI elements
+          browserUrl.textContent = url;
+          currentProjectName.textContent = projectName;
+          
+          // Update iframe source
+          projectFrame.src = url;
+          
+          // Update visit button link
+          visitBtn.onclick = () => window.open(url, '_blank');
+        });
+      });
+      
+      // Refresh button functionality
+      refreshBtn.addEventListener('click', () => {
+        loader.classList.remove('hidden');
+        projectFrame.src = projectFrame.src;
+      });
+      
+      // Initial setup for visit button
+      visitBtn.addEventListener('click', () => {
+        const currentUrl = browserUrl.textContent;
+        window.open(currentUrl, '_blank');
+      });
+      
+      // Simulate initial load delay for better UX
+      setTimeout(() => {
+        loader.classList.add('hidden');
+      }, 1200);
     });
   </script>
 </body>
