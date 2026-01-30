@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Project Collection</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 1rem 1.5rem;
+      background: #111827;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.2rem;
+    }
+
+    .projects {
+      padding: 0.75rem 1.5rem;
+      background: #020617;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-btn {
+      border: 1px solid #374151;
+      background: #020617;
+      color: #e5e7eb;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .project-btn:hover {
+      background: #1f2937;
+      transform: translateY(-1px);
+    }
+
+    .project-btn.active {
+      background: #4b5563;
+    }
+
+    main {
+      flex: 1;
+      padding: 0.75rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    #current-project-name {
+      font-size: 0.95rem;
+      color: #9ca3af;
+    }
+
+    iframe {
+      width: 100%;
+      height: calc(100vh - 160px);
+      border: none;
+      border-radius: 0.5rem;
+      background: #030712;
+    }
+
+    @media (max-width: 600px) {
+      iframe {
+        height: calc(100vh - 200px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Web Projects</h1>
+    <span style="font-size: 0.8rem; color:#9ca3af;">AADHAVAN R</span>
+  </header>
+
+  <section class="projects">
+    <button class="project-btn active" data-url="https://ddos-demo-dzhq.vercel.app/  ">
+      DDoS Demo
+    </button>
+    <button class="project-btn" data-url="https://hotel-app-9zkb.vercel.app/  ">
+      Hotel App
+    </button>
+    <button class="project-btn" data-url="https://cycle-app-delta.vercel.app/  ">
+      Cycle App
+    </button>
+    <button class="project-btn" data-url="https://habittracker-azure.vercel.app/  ">
+      Habit Tracker
+    </button>
+    <button class="project-btn" data-url="https://mobile-e-commerce-blond.vercel.app/  ">
+      Mobile E‑Commerce
+    </button>
+    <button class="project-btn" data-url="https://cyberporal.vercel.app/  ">
+      Cyberporal
+    </button>
+    <button class="project-btn" data-url="https://vote-application.vercel.app/  ">
+      Vote App
+    </button>
+    <button class="project-btn" data-url="https://ug-project-demo-gv6x.vercel.app/  ">
+      UG Project
+    </button>
+    
+  </section>
+
+  <main>
+    <div id="current-project-name">Now showing: DDoS Demo</div>
+    <iframe
+      id="project-frame"
+      src="https://ddos-demo-dzhq.vercel.app/  "
+      title="Project preview"
+      loading="lazy"
+      sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+    ></iframe>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll('.project-btn');
+    const frame = document.getElementById('project-frame');
+    const currentName = document.getElementById('current-project-name');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // change active button
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // update iframe
+        const url = btn.getAttribute('data-url');
+        frame.src = url;
+
+        // update label
+        currentName.textContent = 'Now showing: ' + btn.textContent.trim();
+      });
+    });
+  </script>
+</body>
+</html>
